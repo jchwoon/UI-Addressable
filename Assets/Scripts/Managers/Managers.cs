@@ -12,10 +12,11 @@ public class Managers : MonoBehaviour
     private InputManager _inputManager = new InputManager();
     private ResourceManager _resourceManager = new ResourceManager();
     private UIManager _uiManager = new UIManager();
+    private GameManager _gameManager = new GameManager();
     public static InputManager InputManager { get { return Instance._inputManager; } }
     public static ResourceManager ResourceManager { get { return Instance._resourceManager; } }
     public static UIManager UIManager { get { return Instance._uiManager; } }
-    
+    public static GameManager GameManager { get { return Instance._gameManager; } }
 
     private void Start()
     {

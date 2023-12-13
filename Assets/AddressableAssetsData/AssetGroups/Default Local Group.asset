@@ -30,7 +30,7 @@ MonoBehaviour:
     - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e9496b1781d224478f1524c4f508f82
-    m_Address: Assets/fire
+    m_Address: fire
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
@@ -40,6 +40,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e27cf393421c19f4b8b3b98cfe91c07a
+    m_Address: Assets/Resources_moved/Prefabs/UI/Popup/UIButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 43afafa0f3e66864ab91ca7f6a2b6fea, type: 2}

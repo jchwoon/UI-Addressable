@@ -31,7 +31,7 @@ public class UIManager
             name = typeof(T).Name;
         }
 
-        GameObject go = Managers.ResourceManager.Instantiate($"UI/Popup/{name}");
+        GameObject go = Managers.ResourceManager.Load<GameObject>(name);
         T popupComponent = Util.GetOrAddComponent<T>( go );
         _popupList.Add(popupComponent);
 
@@ -45,7 +45,7 @@ public class UIManager
         UIPopup uIPopup = _popupList[_popupList.Count - 1];
         _popupList.RemoveAt(_popupList.Count - 1);
 
-        Managers.ResourceManager.Destroy(uIPopup.gameObject);
+        Managers.ResourceManager.Destroy(uIPopup.gameObject.name);
         uIPopup = null;
     }
 }
