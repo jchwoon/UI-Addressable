@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 104b9eff84b5af54a83debe7936d59c6
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 76d26947d7f8b8bff42e3e2fcf172ac8
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -81,6 +81,20 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: b3a2a1bc59867824cb2b7b1f256b7bf2
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+    - m_InheritedParent: 
+      m_Id: 7e411aedb6c699c419767144a70ec714
+      m_ProfileName: New Profile1
+      m_Values:
+      - m_Id: 90a4c4481c24ddc4c9de83f51f6501cb
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 40e07ffaac553ec44ad82a7cb93f9f6e
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 6b0eb4f36015b334bb2cec78ecff84f6
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 07ef204b4a333a34389d60d0303bad9f
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: b3a2a1bc59867824cb2b7b1f256b7bf2
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: 90a4c4481c24ddc4c9de83f51f6501cb
       m_Name: BuildTarget
@@ -103,6 +117,7 @@ MonoBehaviour:
     - default
     - PreLoad
     - clickLoad
+    - PreGameObject
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: d9e9713053cf11d41b27c4a304b57058, type: 2}

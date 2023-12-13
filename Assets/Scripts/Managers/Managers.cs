@@ -24,7 +24,6 @@ public class Managers : MonoBehaviour
     {
         Init();
         _gameManager.Init();
-        //_dataManager.Init();
     }
 
     private void Update()
@@ -43,5 +42,6 @@ public class Managers : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         s_instance = gameObject.GetComponent<Managers>();
+        
     }
 }

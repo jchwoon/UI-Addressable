@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 public class ResourceManager
 {
-    private Dictionary<string, UnityEngine.Object> resources = new Dictionary<string, UnityEngine.Object>();
+    public Dictionary<string, UnityEngine.Object> resources = new Dictionary<string, UnityEngine.Object>();
     private Dictionary<string, AsyncOperationHandle> resourcesHandle = new Dictionary<string, AsyncOperationHandle>();
 
     
-    public GameObject Instantiate(string key, Transform parent = null)
+    public GameObject Instantiate(string key, Transform parent = null, bool instantiateInWorld = false)
     {
         GameObject go = Load<GameObject>(key);
         if (go == null)
@@ -20,7 +21,7 @@ public class ResourceManager
             return null;
         }
 
-        return UnityEngine.Object.Instantiate(go, parent);
+        return UnityEngine.Object.Instantiate(go, parent, instantiateInWorld);
     }
 
     //메모리 해제
@@ -48,45 +49,56 @@ public class ResourceManager
             callback?.Invoke(resource as T);
             return;
         }
-
-        //if (key.Contains(".sprite")) loadKey = $"{key}[{key.Replace(".sprite", "")}]";
-
-        //if (key.Contains(".sprite"))
-        //{
-        //    AsyncOperationHandle<Sprite> asyncOperation = Addressables.LoadAssetAsync<Sprite>(loadKey);
-        //    asyncOperation.Completed += (AsyncOperationHandle<Sprite> obj) => {
-        //        resources.Add(key, obj.Result);
-        //        resourcesHandle.Add(key, obj);
-        //        callback?.Invoke(obj.Result as T);
-        //    };
-        //}
-
+        
         AsyncOperationHandle<T> asyncOperation = Addressables.LoadAssetAsync<T>(key);
         asyncOperation.Completed += (AsyncOperationHandle<T> obj) => {
             resources.Add(key, obj.Result);
             resourcesHandle.Add(key, obj);
             callback?.Invoke(obj.Result);
         };
+    }
+    //단일 로드 && 인스턴시
+    public void InstantiateAssetAsync(string key, Transform parent = null, bool instantiateInWorld = false) 
+    {
+        if (resources.TryGetValue(key, out UnityEngine.Object resource))
+        {
+            Instantiate(key, parent, instantiateInWorld);
+            return;
+        }
 
+        AsyncOperationHandle<GameObject> asyncOperation = Addressables.InstantiateAsync(key, parent, instantiateInWorld);
+        asyncOperation.Completed += (AsyncOperationHandle<GameObject> obj) => {
+            resources.Add(key, obj.Result);
+            resourcesHandle.Add(key, obj);
+        };
     }
 
     //라벨 로드
     public void LoadAllAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
     {
-        var operation = Addressables.LoadResourceLocationsAsync(label, typeof(T));
-        operation.Completed += op => {
+        AsyncOperationHandle<IList<IResourceLocation>> operation = Addressables.LoadResourceLocationsAsync(label, typeof(T));
+        operation.Completed += (AsyncOperationHandle<IList<IResourceLocation>> obj) => {
             int loadCount = 0;
-            int totalCount = op.Result.Count;
-
-            foreach (var result in op.Result)
+            int totalCount = obj.Result.Count;
+            foreach (IResourceLocation location in obj.Result)
             {
-                LoadAsync<T>(result.PrimaryKey, obj => {
+                LoadAsync<T>(location.PrimaryKey, obj => {
                     loadCount++;
-                    callback?.Invoke(result.PrimaryKey, loadCount, totalCount);
+                    callback?.Invoke(location.PrimaryKey, loadCount, totalCount);
                 });
             }
         };
     }
 
-    
+    //라벨 로드 && 인스턴시
+    public void InstantialteAllAsync(string label, bool instantiateInWorld = false)
+    {
+        AsyncOperationHandle<IList<IResourceLocation>> operation = Addressables.LoadResourceLocationsAsync(label, typeof(GameObject));
+        operation.Completed += (AsyncOperationHandle<IList<IResourceLocation>> obj) => {
+            foreach (IResourceLocation location in obj.Result)
+            {
+                InstantiateAssetAsync(location.PrimaryKey, null, instantiateInWorld);
+            }
+        };
+    }
 }

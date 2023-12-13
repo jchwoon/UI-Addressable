@@ -2,13 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
-    private void Start()
-    {
-        Init();
-    }
-    
+
     public void Init()
     {
         Managers.ResourceManager.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
@@ -16,14 +12,15 @@ public class GameManager : MonoBehaviour
             if (count >= totalCount)
             {
                 // 리소스 로드가 모두 완료됨.
-                SetGameObject(key);
+                SetGameData();
             }
         }
         );
+        Managers.ResourceManager.InstantialteAllAsync("PreGameObject");
     }
 
-    private void SetGameObject(string key)
+    private void SetGameData()
     {
-        Managers.ResourceManager.Instantiate(key);
+        Managers.DataManager.Init();
     }
 }

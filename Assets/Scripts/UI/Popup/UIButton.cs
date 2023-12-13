@@ -12,8 +12,7 @@ using UnityEngine.AddressableAssets;
 
 public class UIButton : UIPopup
 {
-    private AsyncOperationHandle _operationHandle;
-    private GameObject _itemIconGameObject;
+    private GameObject _playerImageGameObject;
     private void Start()
     {
         Init();
@@ -26,29 +25,40 @@ public class UIButton : UIPopup
         Bind<Image>();
         Bind<Button>();
         Bind<TextMeshProUGUI>();
-       
-        _itemIconGameObject = GetImage("itemIcon").gameObject;
-       //resources, resourcesHandle¿¡ ·Îµå
+        PlayerData playerData = Managers.DataManager.PlayerDat;
+
+        _playerImageGameObject = GetImage("playerImage").gameObject;
+        GetText("PlayerTypeTxt").text = "Warrior";
+        GetText("HpTxt").text = "100";
+        GetText("DamageTxt").text = "20";
+        GetText("DefenceTxt").text = "5";
+        GetText("LevelTxt").text = "1";
+        GetText("CriticalTxt").text = "10";
+        GetText("GoldTxt").text = "2000";
+
+
         Managers.ResourceManager.LoadAsync<Sprite>("fire");
 
-        AddUIEvent(_itemIconGameObject, OnDrag, Define.UIEvent.Drag);
+
+
+        AddUIEvent(_playerImageGameObject, OnDrag, Define.UIEvent.Drag);
         AddUIEvent(GetButton("loadBtn").gameObject, OnClick, Define.UIEvent.Click);
         AddUIEvent(GetButton("unloadBtn").gameObject, UnloadSprite, Define.UIEvent.Click);
     }
 
     private void OnDrag(PointerEventData eventData)
     {
-        _itemIconGameObject.transform.position = eventData.position;
+        _playerImageGameObject.transform.position = eventData.position;
     }
 
     private void OnClick(PointerEventData eventData)
     {
-        _itemIconGameObject.GetComponent<Image>().sprite = Managers.ResourceManager.Load<Sprite>("fire");
+        _playerImageGameObject.GetComponent<Image>().sprite = Managers.ResourceManager.Load<Sprite>("fire");
     }
 
     private void UnloadSprite(PointerEventData eventData)
     {
         Managers.ResourceManager.Destroy("fire");
-        _itemIconGameObject.GetComponent<Image>().sprite = null;
+        _playerImageGameObject.GetComponent<Image>().sprite = null;
     }
 }

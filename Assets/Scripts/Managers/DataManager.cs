@@ -7,55 +7,67 @@ public class DataManager
     private TextAsset _playerJson;
     private TextAsset _weaponJson;
     private TextAsset _armorJson;
+
     private PlayerData _playerData;
     private WeaponData _weaponData;
     private ArmorData _armorData;
+
+    public PlayerData PlayerDat { get { return _playerData; } }
+    public WeaponData WeaponData { get; }
+    public ArmorData ArmorData { get; }
     public void Init()
     {
         _playerJson = Managers.ResourceManager.Load<TextAsset>("player");
         _weaponJson = Managers.ResourceManager.Load<TextAsset>("weapon");
         _armorJson = Managers.ResourceManager.Load<TextAsset>("armor");
 
-        _playerData = JsonUtility.FromJson<PlayerData>(_playerJson.text);
-        _weaponData = JsonUtility.FromJson<WeaponData>(_weaponJson.text);
-        _armorData = JsonUtility.FromJson<ArmorData>(_armorJson.text);
+        AllPlayerData allPlayerData = JsonUtility.FromJson<AllPlayerData>(_playerJson.text);
+        Debug.Log(allPlayerData.player[0].damage);
+        Debug.Log(allPlayerData.player[0].defence);
+        Debug.Log(allPlayerData.player[0].critical);
+        Debug.Log(allPlayerData.player[0].gold);
+        Debug.Log(allPlayerData.player[0].hp);
+        Debug.Log(allPlayerData.player[0].playerType);
+        Debug.Log(allPlayerData.player[0].level);
 
-
-        Debug.Log(_armorData.ArmorType);
-        Debug.Log(_weaponData.Damage);
+        //_playerData.damage = allPlayerData.player[0].damage;
+        //_playerData.defence = allPlayerData.player[0].defence;
+        //_playerData.critical = allPlayerData.player[0].critical;
+        //_playerData.gold = allPlayerData.player[0].gold;
+        //_playerData.hp = allPlayerData.player[0].hp;
+        //_playerData.playerType = allPlayerData.player[0].playerType;
+        //_playerData.level = allPlayerData.player[0].level;
     }
 
 }
 
-enum PlayerType
+enum PlayerTypes
 {
     Warrior,
     Mage,
 }
 
+public class AllPlayerData
+{
+    public PlayerData[] player;
+}
+
 [System.Serializable]
 public class PlayerData
 {
-    private PlayerType _playerType;
-    private int _hp;
-    private int _damage;
-    private int _defence;
-    private int _critical;
-    private int _level;
-    private int _gold;
-
-    public int PlayerType { get; set; }
-    public int Hp { get; set; }
-    public int Damage { get; set; }
-    public int Critical { get; set; }
-    public int Level { get; set; }
-    public int Gold { get; set; }
+    public string playerType;
+    public int hp;
+    public int damage;
+    public int defence;
+    public int critical;
+    public int level;
+    public int gold;
 }
 
 [System.Serializable]
 public class WeaponData
 {
-    private PlayerType _weaponType;
+    private PlayerTypes _weaponType;
     private int _damage;
     private string _name;
     public int WeaponType { get; set; }
@@ -66,7 +78,7 @@ public class WeaponData
 [System.Serializable]
 public class ArmorData
 {
-    private PlayerType _armorType;
+    private PlayerTypes _armorType;
     private int _defence;
     private string _name;
 

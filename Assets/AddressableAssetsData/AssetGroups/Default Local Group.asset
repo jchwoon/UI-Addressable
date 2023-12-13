@@ -21,31 +21,30 @@ MonoBehaviour:
     m_Address: fire
     m_ReadOnly: 0
     m_SerializedLabels:
-    - clickLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e27cf393421c19f4b8b3b98cfe91c07a
-    m_Address: UIButton
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 195818fd65a2f3845b0911dbf0eb71d9
     m_Address: armor
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
+    - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d66fbbecad84974e8c6442889c06b51
     m_Address: player
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
+    - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fbc67c1232dac284ea9d11e2d3219361
     m_Address: weapon
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e27cf393421c19f4b8b3b98cfe91c07a
+    m_Address: Assets/Resources_moved/Prefabs/UI/Popup/UIButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 43afafa0f3e66864ab91ca7f6a2b6fea, type: 2}
