@@ -1,4 +1,4 @@
-# 19+ Survival Game
+# UI바인딩, UI자동화, Addressable Asset
 
 # 📑 목차
 
