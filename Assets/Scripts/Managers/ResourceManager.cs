@@ -26,11 +26,10 @@ public class ResourceManager
     //메모리 해제
     public void Destroy(string key)
     {
-        //resourcesHandle에서 AsyncOperationHandle타입의 handle을 꺼내고 Release에 handle을 전달해줘서 메모리 해제
         if (resourcesHandle.TryGetValue(key, out AsyncOperationHandle operationHandle) == false) return;
-        //key(address)로 주면 에러가 뜸
         Addressables.Release(operationHandle);
         resources.Remove(key);
+        resourcesHandle.Remove(key);
     }
 
     //resources(딕셔너리)에서 값 반환
@@ -50,25 +49,25 @@ public class ResourceManager
             return;
         }
 
-        string loadKey = key;
-        if (key.Contains(".sprite")) loadKey = $"{key}[{key.Replace(".sprite", "")}]";
+        //if (key.Contains(".sprite")) loadKey = $"{key}[{key.Replace(".sprite", "")}]";
 
-        if (key.Contains(".sprite"))
-        {
-            var asyncOperation = Addressables.LoadAssetAsync<Sprite>(loadKey);
-            asyncOperation.Completed += obj => {
-                resources.Add(key, obj.Result);
-                callback?.Invoke(obj.Result as T);
-            };
-        }
-        else
-        {
-            var asyncOperation = Addressables.LoadAssetAsync<T>(loadKey);
-            asyncOperation.Completed +=  obj => {
-                resources.Add(key, obj.Result);
-                callback?.Invoke(obj.Result);
-            };
-        }
+        //if (key.Contains(".sprite"))
+        //{
+        //    AsyncOperationHandle<Sprite> asyncOperation = Addressables.LoadAssetAsync<Sprite>(loadKey);
+        //    asyncOperation.Completed += (AsyncOperationHandle<Sprite> obj) => {
+        //        resources.Add(key, obj.Result);
+        //        resourcesHandle.Add(key, obj);
+        //        callback?.Invoke(obj.Result as T);
+        //    };
+        //}
+
+        AsyncOperationHandle<T> asyncOperation = Addressables.LoadAssetAsync<T>(key);
+        asyncOperation.Completed += (AsyncOperationHandle<T> obj) => {
+            resources.Add(key, obj.Result);
+            resourcesHandle.Add(key, obj);
+            callback?.Invoke(obj.Result);
+        };
+
     }
 
     //라벨 로드

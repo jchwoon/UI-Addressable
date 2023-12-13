@@ -1,0 +1,9 @@
+{
+  "weapon": [
+    {
+      "weaponType": "Warrior",
+      "damage": "10",
+      "name": "집행검"
+    }
+  ]
+}

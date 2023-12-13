@@ -67,6 +67,20 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: b3a2a1bc59867824cb2b7b1f256b7bf2
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+    - m_InheritedParent: 
+      m_Id: c49a7319896e7c44bb26250d982d5766
+      m_ProfileName: New Profile
+      m_Values:
+      - m_Id: 90a4c4481c24ddc4c9de83f51f6501cb
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 40e07ffaac553ec44ad82a7cb93f9f6e
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 6b0eb4f36015b334bb2cec78ecff84f6
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 07ef204b4a333a34389d60d0303bad9f
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: b3a2a1bc59867824cb2b7b1f256b7bf2
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: 90a4c4481c24ddc4c9de83f51f6501cb
       m_Name: BuildTarget
@@ -88,6 +102,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - PreLoad
+    - clickLoad
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: d9e9713053cf11d41b27c4a304b57058, type: 2}
